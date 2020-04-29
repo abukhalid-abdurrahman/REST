@@ -29,7 +29,11 @@ namespace REST_API
             {
                 StreamReader reader = new StreamReader(dataStream);
                 string responseFromServer = reader.ReadToEnd();
-                Console.WriteLine(responseFromServer);
+                
+                StreamWriter streamWriter = new StreamWriter("index.html", false, System.Text.Encoding.UTF8);
+                streamWriter.Write(responseFromServer);
+                streamWriter.Flush();
+                streamWriter.Close();
             }
 
             response.Close();
