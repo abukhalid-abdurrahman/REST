@@ -14,7 +14,7 @@ namespace RESTAPI
             PATCH,
             DELETE
         };
-        public string EndPoint;
+        public string EndPoint { get; set; }
         public QueryTypeEnum QueryMethod;
         public REST(string endPoint, QueryTypeEnum queryMethod)
         {
@@ -26,19 +26,19 @@ namespace RESTAPI
         {
             string responseValue = string.Empty;
             HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(EndPoint);
-            httpWebRequest.Method = QueryMethod.ToString();
-            using(HttpWebResponse httpWebResponse = (HttpWebResponse)httpWebRequest.GetResponse())
+            httpWebRequest.Method = "GET";
+            using (HttpWebResponse httpWebResponse = (HttpWebResponse)httpWebRequest.GetResponse())
             {
-                if(httpWebResponse.StatusCode != HttpStatusCode.OK)
+                if (httpWebResponse.StatusCode != HttpStatusCode.OK)
                 {
                     throw new Exception();
                 }
 
-                using(Stream responseStreamReader = httpWebResponse.GetResponseStream())
+                using (Stream responseStreamReader = httpWebResponse.GetResponseStream())
                 {
-                    if(responseStreamReader != null)
+                    if (responseStreamReader != null)
                     {
-                        using(StreamReader streamReader = new StreamReader(responseStreamReader))
+                        using (StreamReader streamReader = new StreamReader(responseStreamReader))
                         {
                             responseValue = streamReader.ReadToEnd();
                         }
